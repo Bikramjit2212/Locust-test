@@ -2,7 +2,7 @@ name: Locust Stress Test
 on:
     push:
         branches:
-            - master
+            - main
     # workflow_dispatch:
     # schedule:
     #     - cron: '0 2 * * *' #everyday at 2am
