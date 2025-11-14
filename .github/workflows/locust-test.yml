@@ -1,0 +1,42 @@
+name: Locust Stress Test
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+    schedule:
+        - cron: '0 2 * * *' #everyday at 2am
+
+jobs: 
+    stress-test:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout Code
+          uses: actions/checkout@v5
+
+        - name: Setup Python
+          uses: actions/setup-python@v6
+          with:
+            python-version: '3.13'
+
+        - name: Install Dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+
+        - name: Run Locust Stress Test
+          run: |
+            locust -f locustfile.py \
+            -u 1000 -r 100 \
+            -H https://jsonplaceholder.typicode.com \
+            --csv=locust_report
+            
+        - name: Upload CSV Report
+          uses: actions/upload-artifact@v4
+          with:
+            name: locust-csv-report
+            path: |
+                locust_report_*.csv
+
+          
