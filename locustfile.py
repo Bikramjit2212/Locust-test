@@ -6,3 +6,10 @@ class MyStressTestUser(HttpUser):
     @task
     def get_posts(self):
         self.client.get('/posts')
+
+    @task
+    def create_post(self):
+        self.client.post('/posts', json=
+                         {"title":"bikramtest", 
+                          "body":"testbody",
+                          "userId":1})
