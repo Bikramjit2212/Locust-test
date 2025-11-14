@@ -30,7 +30,7 @@ jobs:
             locust -f locustfile.py \
             --headless \
             -u 1000 -r 100 \
-            --run-time 2m\
+            --run-time 2m \
             -H https://jsonplaceholder.typicode.com \
             --csv=locust_report
             
